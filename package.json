@@ -1,0 +1,36 @@
+{
+  "name": "font-lib",
+  "version": "0.1.0",
+  "description": "Font library for https://github.com/fireball-x/font-editor",
+  "main": "src/get_font_list.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fireball-x/node-font-lib"
+  },
+  "keywords": [
+    "fontbrowser",
+    "font",
+    "webfont",
+    "bitmapfont",
+    "ttf",
+    "otf",
+    "woff",
+    "sfnt",
+    "kerning",
+    "freetype",
+    "truetype",
+    "opentype"
+  ],
+  "author": "FireBox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fireball-x/node-font-lib/issues"
+  },
+  "homepage": "https://github.com/fireball-x/node-font-lib",
+  "dependencies": {
+    "freetype2": "fireball-x/node-freetype2#shapes"
+  },
+  "devDependencies": {
+    "nw-gyp": ""
+  }
+}
