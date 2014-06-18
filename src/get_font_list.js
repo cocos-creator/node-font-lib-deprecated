@@ -3,7 +3,7 @@
     var Path = require('path');
     var Fs = require('fs');
     //var Fontpath = require('fontpath');
-    var FontParser = require('./font_parser');
+    var GetFontName = require('./get_font_name');
 
     var FONT_DIRS = {
         win32: '/Windows/fonts',
@@ -18,29 +18,24 @@
 
     var getFontFamily = function (fonts, language) {
 
-        var retval = [];
+        var names = [];
+        var paths = [];
         var dir = fontDir + Path.sep;
 
-        var getFontInfo = function (fontInfo) {
-            var name = fontInfo.name;
-            var index = binaryIndexOf.call(retval, name);
-            if (index < 0) {
-                //console.log(name);
-                //console.dir(fontInfo);
-                retval.splice(~index, 0, name);
-            }
-        };
         for (var i = 0, len = fonts.length; i < len; i++) {
             var ext = Path.extname(fonts[i]).slice(1).toLowerCase();
             if (SUPPORT_FORMATS.indexOf(ext) === -1) {
                 continue;
             }
             var filePath = dir + fonts[i];
-            var buffer = Fs.readFileSync(filePath);
-            var fontInfo = { name: FontParser.getFontName(buffer, language) };
-            getFontInfo(fontInfo);
+            var fontName = GetFontName(filePath, language);
+            var index = binaryIndexOf.call(names, fontName);
+            if (index < 0) {
+                names.splice(~index, 0, fontName);
+                paths.splice(~index, 0, filePath);
+            }
         }
-        return retval;
+        return {names: names, paths: paths};
     }
 
     return function (callback, language) {
