@@ -1,3 +1,4 @@
-﻿module.exports.getFontList = require('./get_font_list');
+﻿module.exports.getFontTable = require('./get_font_table');
 module.exports.getGlyphData = require('./get_glyph_data');
-module.exports.getFont = require('./get_font');
+module.exports.loadFont = require('./load_font');
+module.exports.FT = require('freetype2');
