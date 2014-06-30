@@ -37,7 +37,7 @@
         }
         return {names: names, paths: paths};
     }
-
+    
     return function (callback, language) {
         Fs.readdir(fontDir, function (err, files) {
             if (!err) {

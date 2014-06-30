@@ -1,6 +1,6 @@
 {
   "name": "font-lib",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Font library for https://github.com/fireball-x/font-editor. All unit tests are included in the font-editor",
   "main": "src/index.js",
   "repository": {
