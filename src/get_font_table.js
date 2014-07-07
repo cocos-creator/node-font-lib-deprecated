@@ -1,9 +1,9 @@
-﻿var getFontList = (function () {
+﻿var getFontTable = (function () {
 
     var Path = require('path');
     var Fs = require('fs');
     //var Fontpath = require('fontpath');
-    var GetFontName = require('./get_font_name');
+    var GetFontNames = require('./get_font_name');
 
     var FONT_DIRS = {
         win32: '/Windows/fonts',
@@ -18,8 +18,7 @@
 
     var getFontFamily = function (fonts, language) {
 
-        var names = [];
-        var paths = [];
+        var result = {};
         var dir = fontDir + Path.sep;
 
         for (var i = 0, len = fonts.length; i < len; i++) {
@@ -28,15 +27,22 @@
                 continue;
             }
             var filePath = dir + fonts[i];
-            var fontName = GetFontName(filePath, language);
-            var index = binaryIndexOf.call(names, fontName);
-            if (index < 0) {
-                names.splice(~index, 0, fontName);
-                paths.splice(~index, 0, filePath);
-            }
+            var fontName = "";
+            var familyName = "";
+            var names = GetFontNames(filePath, language);
+            familyName = names[0];
+            fontName = names[1];
+            result[familyName] = { fullname: fontName, filePath: filePath };
+
+            // var index = binaryIndexOf.call(names, fontName);
+            // if (index < 0) {
+            //     names.splice(~index, 0, fontName);
+            //     paths.splice(~index, 0, filePath);
+            // }
         }
-        return {names: names, paths: paths};
-    }
+        return result;
+        // return {names: names, paths: paths};
+    };
 
     return function (callback, language) {
         Fs.readdir(fontDir, function (err, files) {
@@ -62,30 +68,30 @@
  *                  the next element that is larger than item or, if there is no larger element,
  *                  the bitwise complement of Count.
  */
-function binaryIndexOf(searchElement) {
-    'use strict';
+// function binaryIndexOf(searchElement) {
+//     'use strict';
 
-    var minIndex = 0;
-    var maxIndex = this.length - 1;
-    var currentIndex;
-    var currentElement;
+//     var minIndex = 0;
+//     var maxIndex = this.length - 1;
+//     var currentIndex;
+//     var currentElement;
 
-    while (minIndex <= maxIndex) {
-        currentIndex = (minIndex + maxIndex) / 2 | 0;
-        currentElement = this[currentIndex];
+//     while (minIndex <= maxIndex) {
+//         currentIndex = (minIndex + maxIndex) / 2 | 0;
+//         currentElement = this[currentIndex];
 
-        if (currentElement < searchElement) {
-            minIndex = currentIndex + 1;
-        }
-        else if (currentElement > searchElement) {
-            maxIndex = currentIndex - 1;
-        }
-        else {
-            return currentIndex;
-        }
-    }
+//         if (currentElement < searchElement) {
+//             minIndex = currentIndex + 1;
+//         }
+//         else if (currentElement > searchElement) {
+//             maxIndex = currentIndex - 1;
+//         }
+//         else {
+//             return currentIndex;
+//         }
+//     }
 
-    return ~minIndex;
-}
+//     return ~minIndex;
+// }
 
-module.exports = getFontList;
+module.exports = getFontTable;

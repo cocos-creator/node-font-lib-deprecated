@@ -52,7 +52,7 @@ function getFullName (mac_else_win, face, language) {
     }
 }
 
-function getFontName (buffer, language) {
+function getFontNames (buffer, language) {
     if (Buffer.isBuffer(buffer) === false) {
         buffer = Fs.readFileSync(buffer);
     }
@@ -78,13 +78,11 @@ function getFontName (buffer, language) {
         // fall back to nother platform
         name = getFullName( !getMacFirst, face, language);
     }
-    if (name) {
-        return name;
+    if (!name ) {
+        name = face.family_name + " " + face.style_name;
     }
-    else {
-        // failed to get fullname, simply return family name
-        return face.family_name + " " + face.style_name;
-    }
+
+    return [face.family_name,name];
 }
 
-module.exports = getFontName;
+module.exports = getFontNames;
