@@ -32,7 +32,7 @@
             var names = GetFontNames(filePath, language);
             familyName = names[0];
             fontName = names[1];
-            result[familyName] = { fullname: fontName, filePath: filePath };
+            result[familyName] = { fullname: fontName, path: filePath };
 
             // var index = binaryIndexOf.call(names, fontName);
             // if (index < 0) {
